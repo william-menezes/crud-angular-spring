@@ -10,7 +10,7 @@ import { Observable, tap, first, delay } from 'rxjs';
 export class CoursesService {
   constructor(private http: HttpClient) {}
 
-  private readonly API = '/assets/courses.json';
+  private readonly API = "api/courses";
 
   list(): Observable<Course[]> {
     return this.http.get<Course[]>(this.API).pipe(
@@ -18,5 +18,9 @@ export class CoursesService {
       //delay(2000),
       tap((courses) => console.log(courses))
     );
+  }
+
+  save(course: Course): Observable<Course> {
+    return this.http.post<Course>(this.API, course);
   }
 }
